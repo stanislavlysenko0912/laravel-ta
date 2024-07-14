@@ -14,8 +14,8 @@ trait PaginationTrait
             'total_users' => $paginator->total(),
             'count' => $paginator->count(),
             'links' => [
-                'next_url' => $paginator->nextPageUrl(),
-                'prev_url' => $paginator->previousPageUrl(),
+                'next_url' => $paginator->nextPageUrl() . '&count=' . $paginator->perPage(),
+                'prev_url' => $paginator->previousPageUrl() . '&count=' . $paginator->perPage(),
             ],
         ];
     }
