@@ -38,7 +38,7 @@ class AddStatusToResponseMiddleware
 
         $token = $request->header('authorization');
 
-        if (!$token && $response->isSuccessful()) {
+        if ($token && $response->isSuccessful()) {
             $this->jwtService->setTokenToUsed($token);
         }
 
