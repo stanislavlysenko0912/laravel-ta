@@ -43,8 +43,8 @@ class CustomPaginatedResponse implements Responsable
             'total_' . $this->resourceName => $this->paginator->total(),
             'count' => $this->paginator->count(),
             'links' => [
-                'next_url' => $this->paginator->nextPageUrl(),
-                'prev_url' => $this->paginator->previousPageUrl(),
+                'next_url' => $this->paginator->nextPageUrl() . '&count=' . $this->paginator->perPage(),
+                'prev_url' => $this->paginator->previousPageUrl() . '&count=' . $this->paginator->perPage(),
             ],
             $this->resourceName => Collection::make($this->paginator->items())->map(function ($item) use ($resourceClass) {
                 return new $resourceClass($item);
