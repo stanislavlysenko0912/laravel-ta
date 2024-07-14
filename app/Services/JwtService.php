@@ -61,11 +61,21 @@ class JwtService
                 return false;
             }
 
-            Cache::put("used_token:$jti", true, now()->addMinutes(40));
-
             return true;
         } catch (\Exception $e) {
             return false;
+        }
+    }
+
+    public function setTokenToUsed(string $rawToken): void
+    {
+        try {
+            $token = $this->config->parser()->parse($rawToken);
+            $jti = $token->headers()->get('jti');
+
+            Cache::put("used_token:$jti", true, now()->addMinutes(40));
+        } catch (\Exception $e) {
+            // Do nothing
         }
     }
 }

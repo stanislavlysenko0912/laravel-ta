@@ -2,12 +2,21 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\JwtService;
 use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AddStatusToResponseMiddleware
 {
+    private JwtService $jwtService;
+
+    public function __construct(JwtService $jwtService)
+    {
+        $this->jwtService = $jwtService;
+    }
+
+
     public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
@@ -25,6 +34,12 @@ class AddStatusToResponseMiddleware
             );
 
             $response->setData($data);
+        }
+
+        $token = $request->header('authorization');
+
+        if (!$token && $response->isSuccessful()) {
+            $this->jwtService->setTokenToUsed($token);
         }
 
         return $response;
