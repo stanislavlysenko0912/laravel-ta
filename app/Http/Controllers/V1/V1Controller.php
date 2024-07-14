@@ -5,7 +5,7 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\Controller;
 use OpenApi\Attributes as OA;
 
-#[OA\Server(url: "https://laravel-ta.thelysenko.dev", description: "Test Server")]
+#[OA\Server(url: "https://laravel-ta.thelysenko.dev/api/v1", description: "Test Server")]
 #[OA\Server(url: "http://localhost:8000/api/v1", description: "Local Development Server")]
 #[OA\SecurityScheme(
     securityScheme: 'tokenAuth',
