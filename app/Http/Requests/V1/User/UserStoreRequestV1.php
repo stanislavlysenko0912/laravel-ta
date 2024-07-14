@@ -33,7 +33,7 @@ class UserStoreRequestV1 extends FormRequest
             'email' => ['required', 'email:rfc', 'max:255', 'unique:users,email'],
             'phone' => ['required', 'min:13', 'max:15', 'starts_with:+380', 'regex:/^\+380\d{9}$/', 'unique:users,phone'],
             'position_id' => ['required', 'exists:positions,id'],
-            'photo' => 'nullable|image|mimes:jpeg,jpg|max:5120',
+            'photo' => 'nullable|image|mimes:jpeg,jpg|max:5120|dimensions:min_width=70,min_height=70',
         ];
     }
 }

@@ -113,10 +113,6 @@ All fields are *required*:
 
         $optimizedImageData = $imageOptimizer->optimize(file_get_contents($file->getPathname()));
 
-        if (is_null($optimizedImageData)) {
-            throw new MessageException('Image optimization failed, try later', 500);
-        }
-
         $filename = md5(Str::random(10) . time()) . '.' . $extension;
         $path = 'images/users/' . $filename;
         Storage::disk('public')->put($path, $optimizedImageData);
