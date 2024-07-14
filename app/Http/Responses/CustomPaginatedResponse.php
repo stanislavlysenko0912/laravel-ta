@@ -37,14 +37,17 @@ class CustomPaginatedResponse implements Responsable
     {
         $resourceClass = $this->resourceClass;
 
+        $nextPageUrl = $this->paginator->nextPageUrl();
+        $prevPageUrl = $this->paginator->previousPageUrl();
+
         $data = [
             'page' => $this->paginator->currentPage(),
             'total_pages' => $this->paginator->lastPage(),
             'total_' . $this->resourceName => $this->paginator->total(),
             'count' => $this->paginator->count(),
             'links' => [
-                'next_url' => $this->paginator->nextPageUrl() . '&count=' . $this->paginator->perPage(),
-                'prev_url' => $this->paginator->previousPageUrl() . '&count=' . $this->paginator->perPage(),
+                'next_url' => is_null($nextPageUrl) ? null : $nextPageUrl . '&count=' . $this->paginator->perPage(),
+                'prev_url' => is_null($prevPageUrl) ? null : $prevPageUrl . '&count=' . $this->paginator->perPage(),
             ],
             $this->resourceName => Collection::make($this->paginator->items())->map(function ($item) use ($resourceClass) {
                 return new $resourceClass($item);
