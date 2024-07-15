@@ -9,4 +9,4 @@ Route::get('/token', TokenController::class);
 Route::get('/positions', PositionController::class);
 
 Route::resource('users', UserController::class)->only(['index', 'show']);
-Route::resource('users', UserController::class)->only(['store'])->middleware('jwt');
+Route::resource('users', UserController::class)->only(['store'])->middleware(['jwt', 'auth:web']);
